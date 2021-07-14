@@ -4,7 +4,7 @@
   font-weight: 300;
 }
 
-html{
+body{
   background-color:  #93D5F7FF;
 }
 #navbar{
@@ -14,7 +14,8 @@ html{
 }
 
 #navbar>img{
-  padding: 20px;
+  padding: 10px;
+  width: 30vw;
 }
 .search-combine{
   display: flex;
@@ -33,14 +34,20 @@ color: white;
 }
 
 .container{
+  margin-top: 3vh;
   display: grid;
   place-items: center;
-  background-color: #93D5F7FF;
 }
 .card{
+  display: flex;
+  place-items: center;
+  width: 30vw;
   margin-bottom: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 1.0);
 }
 .wrong-pokemon{
   font-family: arial;
+}
+.app{
+  background-color: 93D5F7FF;
 }

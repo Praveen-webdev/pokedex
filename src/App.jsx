@@ -26,11 +26,9 @@ const handleClick=()=>{
         abilities:[res.data.abilities[0].ability.name,res.data.abilities[1].ability.name],
         })
       }).catch(err=>setError(err))
+  setError(null)
 }
 
-function errorHandler(error,info){
-  console.log("error log",error,info)
-}
   return (
     <div className="app">
       <nav id="navbar">
