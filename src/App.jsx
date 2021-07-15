@@ -65,7 +65,7 @@ const handleClick=()=>{
 </div>:<div className="container">
       <div className="card" style={{width: "18rem"}}>
       <img className="card-img-top" src="https://media.tenor.co/images/60480beaace5b157e498a69027a0d0d7/raw" alt="Card cap"/>
-      <h1 className="wrong-pokemon">Please enter a valid pokemon name</h1>
+      <h1 className="wrong-pokemon">No pokemon with the name "{pokename}"</h1>
   </div>
 </div>
 
