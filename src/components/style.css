@@ -47,6 +47,8 @@ color: white;
 }
 .wrong-pokemon{
   font-family: arial;
+  color: #DD3C08FF;
+  text-align: center;
 }
 .app{
   background-color: 93D5F7FF;

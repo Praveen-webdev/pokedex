@@ -14,6 +14,9 @@ const [click,setClick]=useState(false);
 const[isLoading,setLoading]=useState(false);
 const [error,setError]=useState(null)
 const handleClick=()=>{
+if(!pokename){
+  return setClick(false)
+}
   setClick(true);
   setLoading(true);
   const url=`https://pokeapi.co/api/v2/pokemon/${pokename}`.toLowerCase()
@@ -24,6 +27,7 @@ const handleClick=()=>{
         species:res.data.species.name,
         type:res.data.types[0].type.name,
         abilities:[res.data.abilities[0].ability.name,res.data.abilities[1].ability.name],
+        moves:res.data.moves[0].move.name
         })
       }).catch(err=>setError(err))
   setError(null)
@@ -51,6 +55,8 @@ const handleClick=()=>{
       <h5 className="card-title">{detail.species}</h5>
       <p className="card-text">Type : {detail.type}</p>
       <p className="card-text">Abilities : {detail.abilities[0]},{detail.abilities[1]}</p>
+      <p className="card-text">Move :{detail.moves}</p>
+
   </div>
 </div>
 </div>:!error?<div className="container">
@@ -60,12 +66,13 @@ const handleClick=()=>{
       <h5 className="card-title">Loading...</h5>
       <p className="card-text">Type :Loading...</p>
       <p className="card-text">Abilities : Loading...</p>
+      <p className="card-text">Move : Loading...</p>
   </div>
 </div>
 </div>:<div className="container">
       <div className="card" style={{width: "18rem"}}>
       <img className="card-img-top" src="https://media.tenor.co/images/60480beaace5b157e498a69027a0d0d7/raw" alt="Card cap"/>
-      <h1 className="wrong-pokemon">No pokemon with the name "{pokename}"</h1>
+      <h1 className="wrong-pokemon">No pokemon with this name</h1>
   </div>
 </div>
 
