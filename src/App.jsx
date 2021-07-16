@@ -2,6 +2,7 @@ import React from 'react'
 import {useState} from "react";
 import axios from "axios";
 function App() {
+const [input,setInput]=useState("")
 const[pokename,setPokename]=useState("");
 const[detail,setDetail]=useState({
   imgurl:"",
@@ -13,15 +14,19 @@ const[detail,setDetail]=useState({
 const [click,setClick]=useState(false);
 const[isLoading,setLoading]=useState(false);
 const [error,setError]=useState(null)
-const handleClick=()=>{
-if(!pokename){
+
+React.useEffect(() => {
+  let cancel;
+  if(!pokename){
   return setClick(false)
 }
   setClick(true);
-  setLoading(true);
+  setLoading(true)
   const url=`https://pokeapi.co/api/v2/pokemon/${pokename}`.toLowerCase()
-      axios.get(url).then((res)=>{
-        setLoading(false)
+      axios.get(url,{
+        cancelToken:new axios.CancelToken(c=>cancel=c)
+      }).then((res)=>{
+        setLoading(false);
         setDetail({
         imgurl:res.data.sprites.back_default,
         species:res.data.species.name,
@@ -30,19 +35,21 @@ if(!pokename){
         moves:res.data.moves[0].move.name
         })
       }).catch(err=>setError(err))
-  setError(null)
-}
-
+  setError(null);
+  return () => {
+    cancel();
+  };
+}, [pokename])
   return (
     <div className="app">
       <nav id="navbar">
         <img src="https://fontmeme.com/permalink/210709/dfedef5feb40a02ad37fdc8703f7d163.png" alt="logo-img"/>
         <div className="search-combine">
-        <input onChange={(e)=>setPokename(e.target.value)}
-         value={pokename}
+        <input onChange={(e)=>setInput(e.target.value)}
+         value={input}
          type="text" className="form-control " placeholder="Search Pokemon" aria-label="search-pokemon"/>
         <button
-        onClick={handleClick}
+        onClick={(e)=>{e.preventDefault();setPokename(input);}}
         ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
   <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
 </svg></button>
