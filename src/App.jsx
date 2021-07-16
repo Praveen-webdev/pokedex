@@ -31,8 +31,8 @@ React.useEffect(() => {
         imgurl:res.data.sprites.back_default,
         species:res.data.species.name,
         type:res.data.types[0].type.name,
-        abilities:[res.data.abilities[0].ability.name,res.data.abilities[1].ability.name],
-        moves:res.data.moves[0].move.name
+        abilities:[res.data.abilities[0]?.ability.name,res.data.abilities[1]?.ability.name],
+        moves:[res.data.moves[0]?.move.name,res.data.moves[1]?.move.name,res.data.moves[2]?.move.name]
         })
       }).catch(err=>setError(err))
   setError(null);
@@ -62,7 +62,7 @@ React.useEffect(() => {
       <h5 className="card-title">{detail.species}</h5>
       <p className="card-text">Type : {detail.type}</p>
       <p className="card-text">Abilities : {detail.abilities[0]},{detail.abilities[1]}</p>
-      <p className="card-text">Move :{detail.moves}</p>
+      <p className="card-text">Move :{detail.moves[0]},{detail.moves[1]},{detail.moves[2]}</p>
 
   </div>
 </div>
