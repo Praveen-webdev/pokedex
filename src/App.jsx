@@ -11,16 +11,11 @@ const[detail,setDetail]=useState({
   abilities:"",
   moves:""
 })
-const [click,setClick]=useState(false);
 const[isLoading,setLoading]=useState(false);
 const [error,setError]=useState(null)
 
 React.useEffect(() => {
   let cancel;
-  if(!pokename){
-  return setClick(false)
-}
-  setClick(true);
   setLoading(true)
   const url=`https://pokeapi.co/api/v2/pokemon/${pokename}`.toLowerCase()
       axios.get(url,{
@@ -36,9 +31,15 @@ React.useEffect(() => {
         })
       }).catch(err=>setError(err))
   setError(null);
-  return () => {
-    cancel();
-  };
+  setInput("");
+  setDetail({
+  imgurl:"",
+  species:"",
+  type:"",
+  abilities:"",
+  moves:""
+})
+  return () =>cancel();
 }, [pokename])
   return (
     <div className="app">
@@ -55,7 +56,7 @@ React.useEffect(() => {
 </svg></button>
         </div>
       </nav>
-      {click?!isLoading?<div className="container">
+      {pokename?!isLoading?<div className="container">
       <div className="card" style={{width: "18rem"}}>
       <img className="card-img-top" src={detail.imgurl} alt="Card cap"/>
       <div className="card-body">
