@@ -5,7 +5,14 @@
 }
 
 body{
-  background-color:  #93D5F7FF;
+  background-image:linear-gradient(to bottom,#1AABDBFF 0%,#356ABCFF 100%);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  font-family: 'Concert One', cursive,sans-serif;
+  transition: 0.4s ease-out;
+  height: 100vh;
 }
 #navbar{
   background-color: #FFE943FF;
@@ -46,10 +53,15 @@ color: white;
   box-shadow: 0 0 10px rgba(0, 0, 0, 1.0);
 }
 .wrong-pokemon{
-  font-family: arial;
   color: #DD3C08FF;
   text-align: center;
 }
-.app{
-  background-color: 93D5F7FF;
+.footer{
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: rgba(10, 10, 10,0.8);
+  color: rgb(202, 202, 202);
+  text-align: center;
 }
