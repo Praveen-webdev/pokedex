@@ -1,5 +1,4 @@
-import React from 'react'
-import {useState} from "react";
+import React,{useState,useEffect,useRef} from 'react'
 import axios from "axios";
 function App() {
 const [input,setInput]=useState("")
@@ -12,9 +11,13 @@ const[detail,setDetail]=useState({
   moves:""
 })
 const[isLoading,setLoading]=useState(false);
-const [error,setError]=useState(null)
-
-React.useEffect(() => {
+const [error,setError]=useState(null);
+const inputRef=useRef(null);
+useEffect(() => {
+  inputRef.current.focus();
+}, []);
+useEffect(() => {
+  setError(null);
   let cancel;
   setLoading(true)
   const url=`https://pokeapi.co/api/v2/pokemon/${pokename}`.toLowerCase()
@@ -30,7 +33,6 @@ React.useEffect(() => {
         moves:[res.data.moves[0]?.move.name,res.data.moves[1]?.move.name,res.data.moves[2]?.move.name]
         })
       }).catch(err=>setError(err))
-  setError(null);
   setInput("");
   setDetail({
   imgurl:"",
@@ -46,11 +48,12 @@ React.useEffect(() => {
       <nav id="navbar">
         <img src="https://fontmeme.com/permalink/210709/dfedef5feb40a02ad37fdc8703f7d163.png" alt="logo-img"/>
         <div className="search-combine">
-        <input onChange={(e)=>setInput(e.target.value)}
-         value={input}
+        <input onChange={e=>setInput(e.target.value)}
+        ref={inputRef}
+        value={input}
          type="text" className="form-control " placeholder="Search Pokemon" aria-label="search-pokemon"/>
         <button
-        onClick={(e)=>{e.preventDefault();setPokename(input);}}
+        onClick={(e)=>{setPokename(input);e.preventDefault();}}
         ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
   <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
 </svg></button>
